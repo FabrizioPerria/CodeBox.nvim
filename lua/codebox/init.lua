@@ -23,6 +23,9 @@ function M.box_block()
     start_line = start_line - 1
     local lines = vim.api.nvim_buf_get_lines(0, start_line, end_line, false)
     local title = vim.fn.input("Enter block title: ")
+    if title == "" then
+        return
+    end
     local path = Path:new(code_blocks_dir, title)
     path:write(table.concat(lines, "\n"), "w")
 end
