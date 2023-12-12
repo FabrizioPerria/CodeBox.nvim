@@ -26,6 +26,19 @@ function M.box_block()
     if title == "" then
         return
     end
+
+    -- Find the minimum amount of leading whitespace
+    local min_indent = math.huge
+    for _, line in ipairs(lines) do
+        local indent = string.match(line, "^%s*")
+        if indent then
+            min_indent = math.min(min_indent, #indent)
+        end
+    end
+    for i, line in ipairs(lines) do
+        -- Remove the first level of indentation
+        lines[i] = string.sub(line, min_indent + 1)
+    end
     local path = Path:new(code_blocks_dir, title)
     path:write(table.concat(lines, "\n"), "w")
 end
@@ -84,4 +97,5 @@ function M.setup()
     vim.api.nvim_command('command! CodeUnbox lua require("codebox").unbox_block()')
 end
 
+return M
 return M
