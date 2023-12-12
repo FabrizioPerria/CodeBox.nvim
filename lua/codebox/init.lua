@@ -80,8 +80,8 @@ end
 
 function M.setup()
     Path:new(code_blocks_dir):mkdir({ parents = true, exists_ok = true })
-    vim.api.nvim_command('command! -range CodeStashStore lua require("codebox").box_block()')
-    vim.api.nvim_command('command! CodeStashApply lua require("codebox").unbox_block()')
+    vim.api.nvim_command('command! -range CodeBox lua require("codebox").box_block()')
+    vim.api.nvim_command('command! CodeUnbox lua require("codebox").unbox_block()')
 end
 
 return M
